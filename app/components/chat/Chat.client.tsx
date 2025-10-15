@@ -12,6 +12,7 @@ import { fileModificationsToHTML } from '~/utils/diff';
 import { cubicEasingFn } from '~/utils/easings';
 import { createScopedLogger, renderLogger } from '~/utils/logger';
 import { BaseChat } from './BaseChat';
+import { isAuthenticatedStore } from '~/lib/stores/auth';
 
 const toastAnimation = cssTransition({
   enter: 'animated fadeInRight',
@@ -150,6 +151,12 @@ export const ChatImpl = memo(({ initialMessages, storeMessageHistory }: ChatProp
     const _input = messageInput || input;
 
     if (_input.length === 0 || isLoading) {
+      return;
+    }
+
+    const isAuthenticated = isAuthenticatedStore.get();
+    if (!isAuthenticated) {
+      toast.error('Please sign in to start chatting');
       return;
     }
 
