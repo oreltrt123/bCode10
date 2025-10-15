@@ -7,17 +7,17 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "deploy": "npm run build && wrangler pages deploy",
     "build": "remix vite:build",
     "dev": "remix vite:dev",
+    "start": "wrangler pages dev ./build/client",
+    "deploy": "pnpm run build",
+    "preview": "pnpm run build && pnpm run start",
     "test": "vitest --run",
     "test:watch": "vitest",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "lint:fix": "npm run lint -- --fix",
-    "start": "bindings=$(./bindings.sh) && wrangler pages dev ./build/client $bindings",
     "typecheck": "tsc",
-    "typegen": "wrangler types",
-    "preview": "pnpm run build && pnpm run start"
+    "typegen": "wrangler types"
   },
   "engines": {
     "node": ">=18.18.0"
@@ -98,7 +98,7 @@
     "vite-plugin-optimize-css-modules": "^1.1.0",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^2.0.1",
-    "wrangler": "^3.63.2",
+    "wrangler": "^4.43.0",
     "zod": "^3.23.8"
   },
   "resolutions": {
